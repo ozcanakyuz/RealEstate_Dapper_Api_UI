@@ -6,10 +6,10 @@ using System.Runtime.InteropServices;
 
 namespace RealEstate_Dapper_Api.Repositories.CategoryRepository
 {
-    public class CategoryRespository : ICategoryRepository
+    public class CategoryRepository : ICategoryRepository
     {
         private readonly Context _context;
-        public CategoryRespository(Context context)
+        public CategoryRepository(Context context)
         {
             _context = context;
         }
@@ -58,6 +58,16 @@ namespace RealEstate_Dapper_Api.Repositories.CategoryRepository
             using (var connection = _context.CreateConnection())
             {
                 await connection.ExecuteAsync(query, parameters);
+            }
+        }
+
+        public async Task<List<GetByIdCategoryDto>> GetCategory(int id)
+        {
+            string query = "Select * From Category Where CategoryId = @Id";
+            using (var connection = _context.CreateConnection())
+            {
+                var values = await connection.QueryAsync<GetByIdCategoryDto>(query, new { Id = id});
+                return values.ToList();
             }
         }
     }
