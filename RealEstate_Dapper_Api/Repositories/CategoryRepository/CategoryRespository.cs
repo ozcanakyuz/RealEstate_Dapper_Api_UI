@@ -1,6 +1,8 @@
 ﻿using Dapper;
+using Microsoft.AspNetCore.Http.HttpResults;
 using RealEstate_Dapper_Api.Dtos.CategoryDtos;
 using RealEstate_Dapper_Api.Models.DapperContext;
+using System.Runtime.InteropServices;
 
 namespace RealEstate_Dapper_Api.Repositories.CategoryRepository
 {
@@ -25,6 +27,15 @@ namespace RealEstate_Dapper_Api.Repositories.CategoryRepository
             }
         }
 
+        public async void DeleteCategory(int id)
+        {
+            using (var connection = _context.CreateConnection())
+            {
+                string query = "Delete From Category Where CategoryId = @Id";
+                await connection.ExecuteAsync(query, new { Id = id });
+            }
+        }
+
         public async Task<List<ResultCategoryDto>> GetAllCategoryAsync()
         {
             string query = "Select * From Category";
@@ -34,5 +45,6 @@ namespace RealEstate_Dapper_Api.Repositories.CategoryRepository
                 return values.ToList();
             }
         }
+
     }
 }
