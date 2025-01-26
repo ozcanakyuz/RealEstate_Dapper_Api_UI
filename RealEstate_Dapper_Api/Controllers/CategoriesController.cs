@@ -37,5 +37,12 @@ namespace RealEstate_Dapper_Api.Controllers
             return Ok("Silme İşlemi Başarılı");
         }
 
+        [HttpPut]
+        public async Task<IActionResult> UpdateCategory(UpdateCategoryDto updateCategoryDto)
+        {
+            _categoryRepository.UpdateCategory(updateCategoryDto);
+            return Ok("Güncelleme Başarılı");
+        }
+
     }
 }
