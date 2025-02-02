@@ -60,7 +60,7 @@ namespace RealEstate_Dapper_Api.Repositories.PopularLocationRepository
 
             var parameters = new DynamicParameters();
             parameters.Add("@cityName", updatePopularLocationDto.CityName);
-            parameters.Add("@ImageUrl", updatePopularLocationDto.ImageUrl);
+            parameters.Add("@imageUrl", updatePopularLocationDto.ImageUrl);
             parameters.Add("@Id", updatePopularLocationDto.PopularLocationId);
 
             using (var connection = _context.CreateConnection())
