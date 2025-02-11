@@ -35,7 +35,7 @@ namespace RealEstate_Dapper_UI.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateCategory(Dtos.CategoryDtos.ResultCategoryDto createCategoryDto)
+        public async Task<IActionResult> CreateCategory(ResultCategoryDto createCategoryDto)
         {
             var client = _httpClientFactory.CreateClient();
             var jsonData = JsonConvert.SerializeObject(createCategoryDto);

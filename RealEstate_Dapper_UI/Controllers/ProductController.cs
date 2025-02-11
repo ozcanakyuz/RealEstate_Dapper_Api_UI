@@ -1,6 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Newtonsoft.Json;
+using RealEstate_Dapper_UI.Dtos.CategoryDtos;
 using RealEstate_Dapper_UI.Dtos.ProductDtos;
+using System.Net.Http;
+using System.Text;
 
 namespace RealEstate_Dapper_UI.Controllers
 {
@@ -22,6 +26,42 @@ namespace RealEstate_Dapper_UI.Controllers
                 var jsonData = await responseMessage.Content.ReadAsStringAsync();
                 var values = JsonConvert.DeserializeObject<List<ResultProductDto>>(jsonData);
                 return View(values);
+            }
+            return View();
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> CreateProduct()
+        {
+            var client = _httpClientFactory.CreateClient();
+            var responseMessage = await client.GetAsync("https://localhost:7054/api/Categories");
+
+            var jsonData = await responseMessage.Content.ReadAsStringAsync();
+            var values = JsonConvert.DeserializeObject<List<ResultCategoryDto>>(jsonData);
+
+            List<SelectListItem> categoryValues = (from x in values.ToList()
+                                               select new SelectListItem
+                                               {
+                                                   Text = x.CategoryName,
+                                                   Value = x.CategoryId.ToString(),
+                                               }).ToList();
+            ViewBag.v = categoryValues;
+
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> CreateProduct(ResultProductDto createProductDto)
+        {
+            var client = _httpClientFactory.CreateClient();
+            var jsonData = JsonConvert.SerializeObject(createProductDto);
+            StringContent stringContent = new StringContent(jsonData, Encoding.UTF8, "application/json");
+
+            var responseMessage = await client.PostAsync("https://localhost:7054/api/Products/ProductListWithCategory", stringContent);
+
+            if (responseMessage.IsSuccessStatusCode)
+            {
+                return RedirectToAction("Index");
             }
             return View();
         }
