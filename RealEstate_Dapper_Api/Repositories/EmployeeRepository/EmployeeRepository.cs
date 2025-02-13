@@ -13,16 +13,16 @@ namespace RealEstate_Dapper_Api.Repositories.EmployeeRepository
             _context = context;
         }
 
-        public async void CreateEmployee(CreateEmployeeDto employeeDto)
+        public async void CreateEmployee(CreateEmployeeDto createEmployeeDto)
         {
             string query = "Insert Into Employee (Name, Title, Mail, PhoneNumber, ImageUrl, Status) " +
                             "values (@name,@title,@mail,@phoneNumber,@imageUrl,@status)";
             var parameters = new DynamicParameters();
-            parameters.Add("@name", employeeDto.Name);
-            parameters.Add("@title", employeeDto.Title);
-            parameters.Add("@mail", employeeDto.Mail);
-            parameters.Add("@phoneNumber", employeeDto.PhoneNumber);
-            parameters.Add("@imageUrl", employeeDto.ImageUrl);
+            parameters.Add("@name", createEmployeeDto.Name);
+            parameters.Add("@title", createEmployeeDto.Title);
+            parameters.Add("@mail", createEmployeeDto.Mail);
+            parameters.Add("@phoneNumber", createEmployeeDto.PhoneNumber);
+            parameters.Add("@imageUrl", createEmployeeDto.ImageUrl);
             parameters.Add("@status", true);
             using (var connection = _context.CreateConnection())
             {
