@@ -13,6 +13,7 @@ namespace RealEstate_Dapper_Api.Repositories.StatisticsRepository
         decimal AverageProductPriceByRent();
         decimal AverageProductPriceBySale();
         string CategoryNameByMaxProductCount();
+        string CityNameByMaxProductCount();
         int DifferentCityCount();
         decimal LastProductPrice();
         string NewestBuildingYear();
