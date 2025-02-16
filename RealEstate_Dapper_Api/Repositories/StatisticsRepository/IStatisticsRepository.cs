@@ -10,14 +10,14 @@ namespace RealEstate_Dapper_Api.Repositories.StatisticsRepository
         int ProductCount();
         int ApartmentCount();
         string EmployeeNameByMaxProductCount();
-        decimal AverageProductByRent();
-        decimal AverageProductBySale();
-        string CityNameByMaxProductCount();
+        decimal AverageProductPriceByRent();
+        decimal AverageProductPriceBySale();
+        string CategoryNameByMaxProductCount();
         int DifferentCityCount();
         decimal LastProductPrice();
         string NewestBuildingYear();
         string OldestBuildingYear();
-        int AverageRoomCount();
         int ActiveEmployeeCount();
+        int AverageRoomCount();
     }
 }
